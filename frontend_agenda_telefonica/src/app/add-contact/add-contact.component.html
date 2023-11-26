@@ -1,0 +1,64 @@
+<div class="container mt-3">
+    <h3>Add Contact</h3>
+    <form #f="ngForm" novalidate>
+        <div class="form-group">
+            <label for="nume">Nume</label>
+            <input type="text" class="form-control mb-3" placeholder="Nume" pattern="^[a-zA-Z-]+$"
+                name="nume" id="nume" [(ngModel)]="selectedContact.nume" #nume="ngModel" required
+                [class.is-invalid] = "nume.invalid && (nume.dirty || nume.touched)">
+            <div *ngIf="nume.invalid && (nume.dirty || nume.touched)" class="invalid-fedback">
+                <div *ngIf="nume.errors?.['required']" class="mb-1 text-danger">
+                    Acest camp este obigatoriu.
+                </div >
+                <div *ngIf="nume.errors?.['pattern']" class="mb-1 text-danger">
+                    Acest camp trebuie sa constina doar caractere alfabetice si -.
+                </div>
+            </div>
+        </div>
+        <div class="form-group">
+            <label for="nume" >Prenume</label>
+            <input type="text" class="form-control mb-3" placeholder="Prenume" pattern="^[a-zA-Z-]+$"
+                name="prenume" id="prenume" [(ngModel)]="selectedContact.prenume" #prenume="ngModel" required
+                [class.is-invalid] = "prenume.invalid && (prenume.dirty || prenume.touched)">
+            <div *ngIf="prenume.invalid && (prenume.dirty || prenume.touched)" class="invalid-fedback">
+                <div *ngIf="prenume.errors?.['required']" class="mb-1 text-danger">
+                    Acest camp este obigatoriu.
+                </div >
+                <div *ngIf="prenume.errors?.['pattern']" class="mb-1 text-danger">
+                    Acest camp trebuie sa constina doar caractere alfabetice si -.
+                </div>
+            </div>
+        </div>
+        <div class="form-group">
+            <label for="prenume">Telefon</label>
+            <input type="text" class="form-control mb-3" placeholder="Telefon" pattern="[0-9]+"
+                name="telefon" id="telefon" [(ngModel)]="selectedContact.telefon" #telefon="ngModel" required
+                [class.is-invalid] = "telefon.invalid && (telefon.dirty || telefon.touched)">
+            <div *ngIf="telefon.invalid && (telefon.dirty || telefon.touched)" class="invalid-fedback">
+                <div *ngIf="telefon.errors?.['required']" class="mb-1 text-danger">
+                    Acest camp este obigatoriu.
+                </div >
+                <div *ngIf="telefon.errors?.['pattern']" class="mb-1 text-danger">
+                    Acest camp trebuie sa constina doar caractere numerice.
+                </div>
+            </div>
+        </div>
+        <div class="form-group">
+            <label for="prenume">Email</label>
+            <input type="text" class="form-control mb-3" placeholder="Email" pattern="[0-9]+"
+                name="email" id="email" [(ngModel)]="selectedContact.email" #email="ngModel" required
+                [class.is-invalid] = "email.invalid && (email.dirty || email.touched)">
+            <div *ngIf="email.invalid && (email.dirty || email.touched)" class="invalid-fedback">
+                <div *ngIf="email.errors?.['required']" class="mb-1 text-danger">
+                    Acest camp este obigatoriu.
+                </div >
+                <div *ngIf="email.errors?.['pattern']" class="mb-1 text-danger">
+                    Acest camp trebuie sa constina doar caractere numerice.
+                </div>
+            </div>
+        </div>
+        <button [disabled]="!f.valid" type="submit" class="btn btn-primary mt-3" (click)="createContact(f)">Save Contact</button>
+        <!-- <div *ngIf="successMessage" id="successMessage">Contact added successfully</div> -->
+    </form>
+    <br>
+</div>
