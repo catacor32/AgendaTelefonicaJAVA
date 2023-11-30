@@ -1,4 +1,4 @@
-import { Component, Injectable, OnInit, Renderer2 } from '@angular/core';
+import { Component, ElementRef, Injectable, OnInit, Renderer2 } from '@angular/core';
 import { Contact } from '../models/contact';
 import { ApiService } from '../api.service';
 import { HttpErrorResponse } from '@angular/common/http';
@@ -9,14 +9,13 @@ import { UpdateContactModalComponent } from '../update-contact-modal/update-cont
 
 
 @Component({
-  selector: 'app-contact-list',
-  templateUrl: './contact-list.component.html',
-  styleUrls: ['./contact-list.component.css']
+  selector: 'app-contact-cards',
+  templateUrl: './contact-cards.component.html',
+  styleUrls: ['./contact-cards.component.css']
 })
-
-export class ContactListComponent implements OnInit {
+export class ContactCardsComponent implements OnInit{
   public currentPage: number = 1;
-  public pageSize: number = 10;
+  public pageSize: number = 12;
   public selectedContact: Contact = {id: 0, nume: '', prenume: '', telefon: '', email: '', imageUrl: ''};
   public modalRef: MdbModalRef<ModalComponent> | null = null;
   public modalRefUpdate: MdbModalRef<UpdateContactModalComponent> | null = null;
@@ -44,6 +43,8 @@ export class ContactListComponent implements OnInit {
       this.readContacts();
     });
   }
+
+
 
   public openModalUpdateContact(contact: Contact) {
     this.modalRefUpdate = this.modalService.open(UpdateContactModalComponent);

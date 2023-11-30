@@ -1,6 +1,6 @@
 package com.backend_agenda_telefonica.backend_agenda_telefonica.service.impl;
 
-import com.backend_agenda_telefonica.backend_agenda_telefonica.exception.ContactNotFound;
+import com.backend_agenda_telefonica.backend_agenda_telefonica.expection.ContactNotFoundException;
 import com.backend_agenda_telefonica.backend_agenda_telefonica.models.Contact;
 import com.backend_agenda_telefonica.backend_agenda_telefonica.repository.ContactRepository;
 import com.backend_agenda_telefonica.backend_agenda_telefonica.service.ContactService;
@@ -22,7 +22,7 @@ public class ContactServiceImpl implements ContactService {
     }
 
     @Override
-    public Contact updateContact(Contact contact) {
+    public Contact updateContact(Long id,Contact contact) {
         return contactRepository.save(contact);
     }
 
@@ -34,7 +34,8 @@ public class ContactServiceImpl implements ContactService {
     @Override
     public Contact getContact(Long id) {
         return contactRepository.findById(id).
-                orElseThrow(() -> new ContactNotFound("Contact with id:"+ id + " not found"));
+                orElseThrow(() -> new ContactNotFoundException(
+                        "Contact with id"+ id + "was not fount"));
     }
 
     @Override

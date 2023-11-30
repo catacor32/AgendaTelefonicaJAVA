@@ -11,7 +11,7 @@ import java.util.List;
 
 @RestController
 @RequestMapping("/contacts")
-
+@CrossOrigin( origins = "http://localhost:4200")
 public class controllerService {
     private final ContactService contactService;
 
@@ -20,35 +20,30 @@ public class controllerService {
     }
 
     @GetMapping("{id}")
-    @CrossOrigin( origins = "http://localhost:4200")
     public ResponseEntity<Contact> geContactDetails(@PathVariable("id") Long id){
         Contact contact = contactService.getContact(id);
         return new ResponseEntity<>(contact, HttpStatus.OK);
     }
 
     @GetMapping
-    @CrossOrigin( origins = "http://localhost:4200")
     public ResponseEntity<List<Contact>> getAllContactsDetails(){
         List<Contact> listContacts = contactService.getAllContacts();
         return new ResponseEntity<>(listContacts,HttpStatus.OK);
     }
 
     @PostMapping
-    @CrossOrigin( origins = "http://localhost:4200")
     public ResponseEntity<Contact> createContact(@RequestBody Contact contact){
         Contact newContact =  contactService.createContact(contact);
         return new ResponseEntity<>(newContact, HttpStatus.CREATED);
     }
 
-    @PutMapping
-    @CrossOrigin( origins = "http://localhost:4200")
-    public ResponseEntity<Contact> updateContact(@RequestBody Contact contact){
-        Contact upadateContact = contactService.updateContact(contact);
+    @PutMapping("{id}")
+    public ResponseEntity<Contact> updateContact(@PathVariable("id") Long id,@RequestBody Contact contact){
+        Contact upadateContact = contactService.updateContact(id,contact);
         return new ResponseEntity<>(upadateContact, HttpStatus.OK);
     }
 
     @DeleteMapping("{id}")
-    @CrossOrigin( origins = "http://localhost:4200")
     public ResponseEntity<?> deleteContact(@PathVariable("id") Long id){
         contactService.deleteContact(id);
         return new ResponseEntity<>(HttpStatus.OK);

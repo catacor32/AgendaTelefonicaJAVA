@@ -1,19 +1,24 @@
-import { Component } from '@angular/core';
+import { Component, Injectable, Input, OnInit } from '@angular/core';
 import { MdbModalRef } from 'mdb-angular-ui-kit/modal';
 import { ApiService } from '../api.service';
 import { Contact } from '../models/contact';
 import Swal from "sweetalert2";
+import { ContactListComponent } from '../contacts-list/contact-list.component';
 
 @Component({
-  selector: 'app-modal',
-  templateUrl: './modal.component.html',
-  styleUrls: ['./modal.component.css']
+  selector: 'app-update-contact-modal',
+  templateUrl: './update-contact-modal.component.html',
+  styleUrls: ['./update-contact-modal.component.css']
 })
-export class ModalComponent {
-  constructor(public modalRef : MdbModalRef<ModalComponent>, private apiService: ApiService){}
 
-  public contacts: Contact[] = [];
+export class UpdateContactModalComponent implements OnInit {
+  constructor(public modalRef : MdbModalRef<UpdateContactModalComponent>,private apiService: ApiService,){}
+
+  ngOnInit(): void {
+      this.selectedContact = this.apiService.getSelectContact();
+  }
   public selectedContact: Contact = {id: 0, nume: '', prenume: '', telefon: '', email: '', imageUrl: ''};
+  public contacts: Contact[] = [];
   public succeessMessage = () => {
     Swal.fire({
       position: "top-end",
@@ -34,16 +39,18 @@ export class ModalComponent {
     });
   }
 
-  public createContact(form: {value: Contact}){
-    this.apiService.addContact(form.value).subscribe({
+  public updateContact(){
+    this.apiService.updateContact(this.selectedContact.id, this.selectedContact).subscribe({
       complete: () => {
         this.succeessMessage();
         this.modalRef.close();
       },
-      error: (err: any) => {
+      error: (err) => {
         console.log(err);
         this.errorMessage();
       }
-    });
+
+    })
   }
+
 }

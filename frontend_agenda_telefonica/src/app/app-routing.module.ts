@@ -1,12 +1,12 @@
 import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
-import { AddContactComponent } from './add-contact/add-contact.component';
 import { ContactListComponent } from './contacts-list/contact-list.component';
+import { ContactCardsComponent } from './contact-cards/contact-cards.component';
 
 const routes: Routes = [
-  { path: 'add-contact' , component:AddContactComponent},
+  { path: 'contact-cards', component:ContactCardsComponent},
   { path: 'contact-list' , component:ContactListComponent},
-  { path: '**', component:AddContactComponent}
+  { path: '**', component:ContactListComponent}
 ];
 
 @NgModule({

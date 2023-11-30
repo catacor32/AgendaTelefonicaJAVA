@@ -1,0 +1,96 @@
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/boxicons/2.1.4/css/boxicons.min.css"
+ integrity="sha512-cn16Qw8mzTBKpu08X0fwhTSv02kK/FojjNLz0bwp2xJ4H+yalwzXKFw/5cLzuBZCxGWIA+95X4skzvo8STNtSg==" 
+ crossorigin="anonymous" referrerpolicy="no-referrer"/>
+<link href="https://maxcdn.bootstrapcdn.com/font-awesome/4.3.0/css/font-awesome.min.css" rel="stylesheet">
+<div class="container mt-3">
+    <div class="row align-items-center">
+        <div class="col-md-6">
+            <div class="mb-3">
+                <h5 class="card-title">Contact List <span class="text-muted fw-normal ms-2">({{contacts.length}})</span>
+                </h5>
+            </div>
+        </div>
+        <div class="col-md-6">
+            <div class="d-flex flex-wrap align-items-center justify-content-end gap-2 mb-3">
+                <form class="col-12 col-lg-auto mb-3 mb-lg-0 me-lg-3" role="search">
+                    <input type="text" class="form-control" placeholder="Search..." aria-label="Search" name="key"
+                    (ngModelChange)="searchContact(key.value)"  ngModel #key="ngModel" required/>
+                  </form>
+                <div>
+                    <ul class="nav nav-pills">
+                        <li class="nav-item">
+                            <a aria-current="page" href="/contact-list" class="nav-link" data-bs-toggle="tooltip"
+                                data-bs-placement="top" title="" data-bs-original-title="List" aria-label="List"><i
+                                    class="bx bx-list-ul"></i>
+                            </a>
+                        </li>
+                        <li class="nav-item">
+                            <a href="/contact-cards" class="router-link-active router-link-exact-active nav-link active"
+                                data-bs-toggle="tooltip" data-bs-placement="top" title="" data-bs-original-title="Grid"
+                                aria-label="Grid">
+                                <i class="bx bx-grid-alt"></i>
+                            </a>
+                        </li>
+                    </ul>
+                </div>
+                <div>
+                    <button class="btn btn-primary" (click)="openModalNewContact()"><i class="bx bx-plus me-1"></i> Add New </button>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-md-6 col-xl-3" *ngFor="let contact of contacts | paginate:{
+            itemsPerPage: pageSize,
+            currentPage: currentPage,
+        }">
+            <div class="card m-b-30">
+                <div class="card-body row">
+                    <div class="col-6">
+                        <a href=""><img src="{{contact.imageUrl}}" alt=""
+                                onerror="this.src='https://bootdey.com/img/Content/avatar/avatar7.png'"
+                                class="img-fluid rounded-circle w-60"></a>
+                    </div>
+                    <div class="col-6 card-title align-self-center mb-0">
+                        <h5>{{contact.prenume}} {{contact.nume}}</h5>
+                    </div>
+                </div>
+                <ul class="list-group list-group-flush">
+                    <li class="list-group-item  border-top"><i class="fa fa-envelope float-end"></i>Email : {{contact.email}}</li>
+                    <li class="list-group-item  border-bottom"><i class="fa fa-phone float-end"></i>Phone : {{contact.telefon}}</li>
+                </ul>
+                <div class="card-body">
+                    <div class="float-end btn-group btn-group-sm">
+                        <a href="javascript:void(0);" (click)="openModalUpdateContact(contact)" class="btn btn-primary tooltips" data-placement="top" data-toggle="tooltip"
+                            data-original-title="Edit"><i class="fa fa-pencil"></i> </a>
+                        <a href="javascript:void(0);" (click)="confirmDelete(contact.id)" class="btn btn-secondary tooltips" data-placement="top" data-toggle="tooltip"
+                            data-original-title="Delete"><i class="fa fa-times"></i></a>
+                    </div>
+                    <ul class="social-links list-inline mb-0">
+                        <li class="list-inline-item"><a title="" data-placement="top" data-toggle="tooltip"
+                                class="tooltips" href="" data-original-title="Facebook"><i
+                                    class='fa fa-facebook-f'></i></a></li>
+                        <li class="list-inline-item"><a title="" data-placement="top" data-toggle="tooltip"
+                                class="tooltips" href="" data-original-title="Twitter"><i
+                                    class='fa fa-twitter'></i></a></li>
+                        <li class="list-inline-item"><a title="" data-placement="top" data-toggle="tooltip"
+                                class="tooltips" href="" data-original-title="Skype"><i
+                                    class='fa fa-twitter'></i></a></li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="row g-0 align-items-center pb-4">
+        <div class="col-sm-6">
+          <div>
+            <p class="mb-sm-0">Showing 1 to 12 of {{contacts.length}} entries</p>
+          </div>
+        </div>
+        <div class="col-sm-6">
+          <div class="float-sm-end">
+            <pagination-controls (pageChange)="currentPage = $event" class="my-pagination" ></pagination-controls>
+          </div>
+        </div>
+    </div>
+</div>
